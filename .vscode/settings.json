@@ -1,7 +1,6 @@
 {
-    "standard.usePackageJson": true,
-    "standard.autoFixOnSave": true,
-    "standard.semistandard": true,
     "javascript.validate.enable": false,
+    "standard.autoFixOnSave": true,
+    "standard.usePackageJson": true,
     "git.ignoreLimitWarning": true
 }

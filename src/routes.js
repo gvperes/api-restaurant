@@ -13,6 +13,8 @@ routes.get('/plates', PlateController.index);
 routes.post('/users', upload.single(''), UserController.store);
 routes.get('/users', UserController.index);
 routes.delete('/users/:id/delete', UserController.delete);
+routes.get('/users/:id/plates', UserController.userPlates)
+routes.get('/users/:userId/plates/:plateId', UserController.likePlate)
 
 routes.get('/login', upload.single(''), UserController.login);
 
