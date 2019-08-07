@@ -1,0 +1,6 @@
+{
+    "standard.usePackageJson": true,
+    "standard.autoFixOnSave": true,
+    "standard.semistandard": true,
+    "javascript.validate.enable": false
+}
