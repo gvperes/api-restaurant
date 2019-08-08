@@ -51,24 +51,24 @@ module.exports = {
   },
 
   async userPlates (req, res) {
-    const user = await PlateXUser.filter((elem, i) => elem.userId === req.params.id)
+    console.log('entroufghdfgh', req.params.id)
+    const user = await PlateXUser.find({ userId: req.params.id })
     return res.json(user)
   },
 
   async likePlate (req, res) {
+    console.log(req.params)
     const { userId, plateId } = req.params
 
-    const plateSelected = PlateXUser.find((elem, i) => elem.userId === userId && elem.plateId === plateId)
+    const plateSelected = await PlateXUser.find((elem, i) => {
+      console.log(elem)
+      return elem && elem.userId === userId && elem.plateId === plateId
+    })
 
-    let plateLiked
-    if (!plateSelected) {
-      plateLiked = await PlateXUser.create({
-        userId,
-        plateId
-      })
-    } else {
-      plateSelected.delete()
-    }
+    const plateLiked = await PlateXUser.create({
+      userId,
+      plateId
+    })
 
     return res.json(plateLiked)
   }
