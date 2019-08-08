@@ -9,6 +9,7 @@ const routes = express.Router()
 
 routes.post('/plates', upload.single('image'), PlateController.store)
 routes.get('/plates', PlateController.index)
+routes.delete('/plates/:id/delete', PlateController.delete)
 
 routes.post('/users', upload.single(''), UserController.store)
 routes.get('/users', UserController.index)
