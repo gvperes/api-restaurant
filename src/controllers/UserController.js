@@ -20,7 +20,9 @@ module.exports = {
   },
 
   async login (req, res) {
-    const { userName, password } = req.body
+    const userName = req.params.userName
+    const password = req.params.password
+    console.log(userName, password)
     const users = await User.find()
     let index = -1
     const response = {}

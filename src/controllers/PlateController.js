@@ -1,7 +1,7 @@
 const Plate = require('../models/Plate')
 const sharp = require('sharp')
 const path = require('path')
-const fs = require('fs')
+// const fs = require('fs')
 
 module.exports = {
 
@@ -14,8 +14,8 @@ module.exports = {
     const { name } = req.body
     const { filename: image } = req.file
 
-    const [name] = image.split('.')
-    const fileName = `${name}.jpg`
+    const [nameb] = image.split('.')
+    const fileName = `${nameb}.jpg`
 
     await sharp(req.file.path)
       .resize(500)
