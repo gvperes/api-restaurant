@@ -16,6 +16,6 @@ routes.delete('/users/:id/delete', UserController.delete)
 routes.get('/users/:id/plates', UserController.userPlates)
 routes.post('/users/:userId/plates/:plateId', upload.single(''), UserController.likePlate)
 
-routes.get('/login', upload.single(''), UserController.login)
+routes.post('/login', upload.single(''), UserController.login)
 
 module.exports = routes

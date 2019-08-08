@@ -51,7 +51,6 @@ module.exports = {
   },
 
   async userPlates (req, res) {
-    console.log('entroufghdfgh', req.params.id)
     const user = await PlateXUser.find({ userId: req.params.id })
     return res.json(user)
   },
