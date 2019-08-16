@@ -13,6 +13,8 @@ app.use(cors())
 
 app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads', 'resized')))
 
+app.use(express.json())
+
 app.use(require('./routes'))
 
 app.use(function (req, res, next) {

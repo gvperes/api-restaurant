@@ -7,8 +7,11 @@ module.exports = {
 
   async index (req, res) {
     const plates = await Plate.find().sort('-createdAt')
-
-    return res.json(plates)
+    const response = {
+      status: 200,
+      data: plates,
+    };
+    return res.json(response)
   },
   async store (req, res) {
     const { name } = req.body

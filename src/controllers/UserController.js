@@ -5,7 +5,6 @@ const uuid = require('uuid/v4')
 module.exports = {
   async index (req, res) {
     const users = await User.find().sort('-createdAt')
-    console.log('users', users)
 
     return res.json(users)
   },
@@ -20,27 +19,32 @@ module.exports = {
   },
 
   async login (req, res) {
-    const userName = req.params.userName
-    const password = req.params.password
-    console.log(userName, password)
+    const { userName, password } = req.body
+
     const users = await User.find()
     let index = -1
+    let id = -1
     const response = {}
 
     for (let i = 0; i < users.length; i++) {
       if (users[i].userName === userName) {
         index = i
+        id = users[i]._id
       }
     }
     const userSend = index !== -1 ? users[index] : false
     if (userSend && userSend.userName === userName && userSend.password === password) {
       response.status = '200'
-      response.token = uuid()
+      response.data = {
+        token: uuid(),
+        id: id
+      }
     } else {
       response.status = '400'
-      response.message = 'Usuário e senha incorretos'
+      response.data = {
+        message: 'Usuário e senha incorreto'
+      }
     }
-
     return res.json(response)
   },
 
@@ -51,8 +55,18 @@ module.exports = {
   },
 
   async userPlates (req, res) {
-    const user = await PlateXUser.find({ userId: req.params.id })
-    return res.json(user)
+    const response = {};
+
+    const platesLikedByUser = await PlateXUser.find({ userId: req.params.id });
+
+    if (platesLikedByUser) {
+      response.status = 200;
+      response.data = platesLikedByUser;
+    } else {
+      response.status = 400;
+      response.data = { message: 'Não existem pratos para o usuário buscado' }
+    }
+    return res.json(response);
   },
 
   async likePlate (req, res) {
@@ -66,14 +80,17 @@ module.exports = {
       register = await PlateXUser.create({
         userId,
         plateId
+      });
+
+      return res.json({
+        status: 200,
       })
     } else {
-      console.log('false')
-      const teste = await PlateXUser.findById(checkLikedPlate[0].id)
+      const teste = await PlateXUser.findById(checkLikedPlate[0].id);
       teste.delete()
-      console.log(teste)
+      return res.json({
+        status: 200,
+      })
     }
-
-    return res.json(register)
   }
 }
