@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const PlateSchema = mongoose.Schema({
   name: String,
-  image: String
+  image: String,
+  tooltip: String,
 }, {
   timestamps: true
 });

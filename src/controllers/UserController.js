@@ -55,41 +55,41 @@ module.exports = {
   },
 
   async userPlates (req, res) {
-    const response = {};
+    const response = {}
 
-    const platesLikedByUser = await PlateXUser.find({ userId: req.params.id });
+    const platesLikedByUser = await PlateXUser.find({ userId: req.params.id })
 
     if (platesLikedByUser) {
-      response.status = 200;
-      response.data = platesLikedByUser;
+      response.status = 200
+      response.data = platesLikedByUser
     } else {
-      response.status = 400;
+      response.status = 400
       response.data = { message: 'Não existem pratos para o usuário buscado' }
     }
-    return res.json(response);
+    return res.json(response)
   },
 
   async likePlate (req, res) {
     const { userId, plateId } = req.params
 
     const checkLikedPlate = await PlateXUser.find({ userId: userId, plateId: plateId })
-    console.log(checkLikedPlate.length === 0)
+
     let register
 
     if (checkLikedPlate.length === 0) {
       register = await PlateXUser.create({
         userId,
         plateId
-      });
+      })
 
       return res.json({
         status: 200,
       })
     } else {
-      const teste = await PlateXUser.findById(checkLikedPlate[0].id);
+      const teste = await PlateXUser.findById(checkLikedPlate[0].id)
       teste.delete()
       return res.json({
-        status: 200,
+        status: 200
       })
     }
   }

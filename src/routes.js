@@ -7,7 +7,7 @@ const PlateController = require('./controllers/PlateController')
 const upload = multer(uploadConfig)
 const routes = express.Router()
 
-routes.post('/plates', upload.single('image'), PlateController.store)
+routes.post('/plates', PlateController.store)
 routes.get('/plates', PlateController.index)
 routes.delete('/plates/:id/delete', PlateController.delete)
 
